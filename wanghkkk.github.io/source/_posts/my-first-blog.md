@@ -5,6 +5,7 @@ categories:
   - hexo
 tags:
   - hexo
+abstract: 使用hexo框架在github pages上创建免费的博客
 ---
 
 我的第一个hexo 文章,分享从头开始安装使用配置hexo，并设置好自己喜欢的主题，特做此文章记录。

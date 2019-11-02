@@ -1,5 +1,6 @@
 ---
 title: Hello World
+date: 2019-11-01 21:30:00
 categories:
   - hexo
 tags:
