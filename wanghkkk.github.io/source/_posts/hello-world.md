@@ -1,11 +1,8 @@
 ---
 title: Hello World
 categories:
-  - hello_world
-  - test
+  - hexo
 tags:
-  - hello_world
-  - test
   - hexo
 preview: 300
 ---
