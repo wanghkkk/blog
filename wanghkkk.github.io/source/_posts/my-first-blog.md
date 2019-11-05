@@ -151,3 +151,10 @@ hexo deploy
 打开网址（github repo 名字）查看一下吧：
 
 https://wanghkkk.github.io
+
+---
+
+> 作者：Knner.wang
+> 网站：https://knner.wang
+
+![](https://knner.wang/imgs/TX.jpg "tx")

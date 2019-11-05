@@ -19,6 +19,13 @@ version: "1.3.4"
 # Theme default settings
 # ---------------------------------------------------------------
 
+#highlight:
+highlight:
+  enable: true
+  line_number: true
+  auto_detect: true
+  tab_replace:
+
 # Menu setting | format = title_name: link_url
 menu:
   ABOUT: /whoami
@@ -63,6 +70,9 @@ favicon: /img/favicon.png
 # rss file
 rss: atom.xml
 
+
+codemirror:
+  modes: ['javascript', 'css', 'xml', 'htmlmixed', 'clike', 'php', 'shell', 'python']
 # ---------------------------------------------------------------
 # Article Music settings
 # ---------------------------------------------------------------

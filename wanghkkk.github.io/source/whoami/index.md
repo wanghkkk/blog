@@ -12,7 +12,6 @@ date: 2019-11-01 22:28:24
 ## 能力
 
 - python
-- go
 - linux
 - docker
 - kubernetes
