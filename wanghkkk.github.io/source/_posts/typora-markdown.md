@@ -10,13 +10,17 @@ tags:
 date: 2019-11-05 09:47:03
 updated: 
 abstract: markdown 语法参考，大部分是通用的语法，Hexo不适用的已经标注
-cover: 
+cover: /images/logos/typora-big.png
 typora-root-url: ..
 ---
 
+![](/images/logos/markdown.jpg)
+
 Markdown 编辑器有很多，可以用vscode，typora，这里使用typora这个软件，markdown格式自动渲染，非常的不错。
 
-整体目录：Hexo 内无法显示，参考右侧的目录
+## 整体目录
+
+Hexo 内无法显示，参考左侧的目录
 
 [toc]
 
@@ -44,9 +48,9 @@ http://support.typora.io
 
 安装步骤下一步即可。
 
-### 下载并安装Pandoc(typora导出的时候使用，如果不需要导出则不需要安装)：
+### 下载并安装Pandoc：
 
-[官网参考](http://support.typora.io/Install-and-Use-Pandoc/)
+typora导出的时候使用，如果不需要导出则不需要安装。[官网参考](http://support.typora.io/Install-and-Use-Pandoc/)
 
 Typora支持的导出格式如下：
 
@@ -206,25 +210,25 @@ Typora支持的导出格式如下：
 
 #### 代码块（Code Blocks）
 
-使用：三个反引号(```)把代码块包裹起来，手部的反引号后面可以标明代码块的语言，markdown自动进行高亮，如下：
+使用：三个反引号(```)把代码块包裹起来，手部的反引号后面可以标明代码块的语言，markdown自动进行高亮，如下：我这里为了避免嵌套问题，在每个反引号前加了反斜线\.
 
 在typora中直接键入```号，然后回车，自动触发
 
 ```
 Here's an example:
 
-​```
+\`\`\`
 function test() {
   console.log("notice the blank line before this function?");
 }
-​```
+\`\`\`
 
 syntax highlighting:
-​```ruby
+\`\`\`ruby
 require 'redcarpet'
 markdown = Redcarpet.new("Hello World!")
 puts markdown.to_html
-​```
+\`\`\`
 ```
 
 显示效果如下：
@@ -425,6 +429,109 @@ This is [an example](http://example.com/ "Title") inline link.
 Title的效果图：
 
 ![inline-title](/images/typora-markdown/inline-title.jpg)
+
+###### 问题：
+
+如何增加链接跳转到本文内的其他位置呢？
+
+Markdown会自动给每一个h1-h6标题生成一个锚，其`id`就是**标题内容**。目录树中的每一项都是一个跳转链接，点击后就会跳转到其对应的锚点（即标题所在位置）
+
+两种方式：
+
+```html
+方式1：通过Markdown语法，推荐
+[跳转到目录](#整体目录)
+
+方式2：通过HTML语法：
+<a href="#整体目录">跳转到目录</a>
+```
+
+显示效果：
+
+---
+
+方式1：通过Markdown语法：
+[跳转到目录](#整体目录)
+
+方式2：通过HTML语法：
+<a href="#整体目录">跳转到目录</a>
+
+---
+
+###### 那么问题又来了
+
+如果我不想跳转到某个标题呢，只想跳转到某段话呢？
+
+```html
+对于要跳转到的地方，需要定义好锚点
+<span id="1">跳转到这里1</span>
+
+写超链接，定义跳转到哪里
+[跳转到1](#1)
+<a href="#1">跳转到1</a>
+```
+
+显示效果：
+
+**注意**: Typora不支持这种方式：但是Hexo网页上是可以的。
+
+---
+
+对于要跳转到的地方，需要定义好锚点
+<span id="jump">跳转到这里1</span>
+
+写超链接，定义跳转到哪里
+[跳转到1](#jump)
+<a href="#jump">跳转到1</a>
+
+---
+
+###### 另一个问题：
+
+如何跳转到其他文件呢？
+
+```
+[使用hexo + github pages 创建博客](my-first-blog.md)
+```
+
+显示效果：
+
+---
+
+[使用hexo + github pages 创建博客](my-first-blog.md)
+
+---
+
+原理：他会在当前目录内找圆括号内的文件，然后跳转打开。
+
+**注意**：上面的链接在Hexo内无法打开，因为`hexo gen`或者`hexo dep`或者`hexp serv`，都会将xxx.md文件渲染成xxx.html。*_config.yml* 内定义的。这种方式只能跳转到和本文件同一目录的其他文件上。
+
+对于hexo如果需要跳转到其他的文章，可能不是同一时间内写的。
+
+本文的链接是：https://knner.wang/2019/11/05/typora-markdown.html
+
+可能要跳转到：https://knner.wang/2019/11/01/my-first-blog.html
+
+如何在markdown内增加链接呢？这就需要用到了Hexo的tag功能：
+
+[官网参考](https://hexo.io/zh-cn/docs/tag-plugins)
+
+```
+引用其他文章的链接。
+{% post_path slug %}
+{% post_link slug [title] [escape] %}
+在使用此标签时可以忽略文章文件所在的路径或者文章的永久链接信息、如语言、日期。
+例如，在文章中使用 {% post_link how-to-bake-a-cake %} 时，只需有一个名为 how-to-bake-a-cake.md 的文章文件即可。即使这个文件位于站点文件夹的 source/posts/2015-02-my-family-holiday 目录下、或者文章的永久链接是 2018/en/how-to-bake-a-cake，都没有影响。
+默认链接文字是文章的标题，你也可以自定义要显示的文本。此时不应该使用 Markdown 语法 []()。
+
+例如：
+跳转到"使用hexo + github pages 创建博客"这篇文章：
+{% post_link my-first-blog 使用hexo + github pages 创建博客 %}
+```
+
+效果：
+
+{% post_link my-first-blog 使用hexo + github pages 创建博客 %}
 
 ##### Reference Links
 
@@ -667,3 +774,60 @@ Hexo无法正常显示，贴图如下：
 
 详细的请参考[HTML](http://support.typora.io/HTML/)
 
+
+### YAML Copy Test
+
+``` yaml
+apiVersion: kubeadm.k8s.io/v1beta2
+kind: InitConfiguration
+nodeRegistration:
+  taints:
+  - effect: NoSchedule
+    key: node-role.kubernetes.io/master
+  kubeletExtraArgs:
+    cloud-provider: aws
+---
+apiServer:
+  timeoutForControlPlane: 4m0s
+  extraArgs:
+    cloud-provider: aws
+    runtime-config: "api/all=true"
+    audit-log-path: /var/log/kubernetes/audit.log
+apiVersion: kubeadm.k8s.io/v1beta2
+certificatesDir: /etc/kubernetes/pki
+clusterName: kubernetes
+controllerManager:
+  extraArgs:
+    cloud-provider: aws
+    horizontal-pod-autoscaler-use-rest-clients: "true"
+    horizontal-pod-autoscaler-sync-period: "10s"
+    node-monitor-grace-period: "10s"
+dns:
+  type: CoreDNS
+etcd:
+  local:
+    dataDir: /var/lib/etcd
+imageRepository: k8s.gcr.io
+kind: ClusterConfiguration
+kubernetesVersion: v1.16.1
+controlPlaneEndpoint: 172.17.0.180:64443
+networking:
+  dnsDomain: cluster.local
+  podSubnet: 10.101.0.0/16
+  serviceSubnet: 10.100.0.0/16
+scheduler: {}
+---
+apiVersion: kubeproxy.config.k8s.io/v1alpha1
+kind: KubeProxyConfiguration
+bindAddress: 0.0.0.0
+mode: "ipvs"
+---
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+address: 0.0.0.0
+cgroupDriver: systemd
+clusterDNS:
+- 10.100.0.10
+maxPods: 110
+staticPodPath: /etc/kubernetes/manifests
+```

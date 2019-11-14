@@ -28,7 +28,7 @@ archive_dir: archives
 category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
-skip_render:
+skip_render: README.md
 
 # Writing
 new_post_name: :title.md # File name of new posts
@@ -44,10 +44,10 @@ post_asset_folder: true
 relative_link: false
 future: true
 highlight:
-  enable: false
+  enable: true
   line_number: false
-  auto_detect: true
-  tab_replace: 
+  auto_detect: false
+  tab_replace: 4
 
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
@@ -90,7 +90,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: obsidian
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
